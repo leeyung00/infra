@@ -1,0 +1,16 @@
+domain={{ dns_domain }}
+local=/{{ dns_domain }}/
+
+server=8.8.8.8
+server=1.1.1.1
+
+expand-hosts
+addn-hosts=/etc/dnsmasq.hosts
+
+listen-address=127.0.0.1,{{ dns_ip }}
+bind-dynamic
+
+domain-needed
+bogus-priv
+filter-AAAA
+cache-size=1000

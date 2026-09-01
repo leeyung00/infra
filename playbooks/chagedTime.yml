@@ -1,0 +1,6 @@
+- name: 공통 설정
+  hosts: all
+  tasks:
+    - name: 타임존 설정
+      timezone:
+        name: Asia/Seoul

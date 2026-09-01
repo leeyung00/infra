@@ -1,0 +1,5 @@
+- name: restart app
+  service:
+    name: app
+    state: restarted
+    daemon_reload: yes

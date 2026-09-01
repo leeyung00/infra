@@ -1,0 +1,52 @@
+- name: MySQL 서버 설치
+  package:
+    name: mysql-server
+    state: present
+
+- name: 파이썬 MySQL 모듈 설치
+  package:
+    name: python3-pymysql
+    state: present
+
+- name: mysqld 설정 배포
+  template:
+    src: mysqld.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart mysql
+
+- name: MySQL 서비스 시작 및 자동시작 등록
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: appdb 데이터베이스 생성
+  community.mysql.mysql_db:
+    name: appdb
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: appuser 계정 생성
+  community.mysql.mysql_user:
+    name: appuser
+    host: "172.30.1.202"
+    password: "{{ db_app_password }}"
+    priv: "appdb.*:ALL"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: visits 테이블 생성
+  community.mysql.mysql_query:
+    login_db: appdb
+    query: >
+      CREATE TABLE IF NOT EXISTS visits (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        visited_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        note VARCHAR(100)
+      )
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+

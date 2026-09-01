@@ -1,0 +1,13 @@
+[Unit]
+Description=Flask App
+After=network.target
+
+[Service]
+Environment="DB_PASSWORD={{ db_app_password }}"
+ExecStart=/usr/bin/python3 /opt/app/app.py
+WorkingDirectory=/opt/app
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

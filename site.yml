@@ -1,0 +1,22 @@
+- hosts: db
+  become: true
+  roles:
+    - network
+    - mysql
+
+- hosts: was
+  become: true
+  roles:
+    - app
+
+- hosts: web
+  become: true
+  roles:
+    - web
+
+- hosts: dns
+  become: true
+  roles:
+    - dns
+
+

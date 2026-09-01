@@ -1,0 +1,8 @@
+- name: SSH 공개키 배포
+  hosts: all
+  tasks:
+    - name: authorized_keys에 공개키 등록
+      ansible.posix.authorized_key:
+        user: "{{ ansible_user }}"
+        key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
+        state: present

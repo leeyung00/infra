@@ -1,0 +1,42 @@
+- name: WAS 파이썬 설치
+  package:
+    name: python3-flask
+    state: present
+
+- name: 파이썬 MySQL 모듈 설치
+  package:
+    name: python3-pymysql
+    state: present
+
+- name: /opt/app 디렉터리 생성
+  file:
+    path: /opt/app
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: app 배포
+  template:
+    src: app.py.j2
+    dest: /opt/app/app.py
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart app
+
+- name: systemd 서비스파일 배포
+  template:
+    src: app.service.j2
+    dest: /etc/systemd/system/app.service
+    owner: root
+    group: root
+    mode: '0600'
+  notify: restart app
+
+- name: app 서비스 시작 및 자동시작 등록
+  systemd:
+    name: app
+    state: started
+    enabled: yes
+    daemon_reload: yes

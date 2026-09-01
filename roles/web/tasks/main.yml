@@ -1,0 +1,20 @@
+- name: nginx 설치
+  package:
+    name: nginx
+    state: present
+
+- name: nginx 실행
+  template:
+    src: default.j2
+    dest: /etc/nginx/sites-available/default
+    owner: root
+    group: root
+    mode: '0644'
+  notify: reload nginx
+
+- name: nginx 서비스 시작 및 자동시작 등록
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+

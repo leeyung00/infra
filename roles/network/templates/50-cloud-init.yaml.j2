@@ -1,0 +1,12 @@
+network:
+  version: 2
+  ethernets:
+    ens18:
+      dhcp4: false
+      addresses: [{{ db_ip }}/24]
+      routes:
+        - to: default
+          via: 172.30.1.254
+      nameservers:
+        addresses: [{{ dns_ip }}]
+        search: [{{ dns_domain }}]
