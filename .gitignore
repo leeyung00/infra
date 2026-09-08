@@ -1,3 +1,17 @@
 .vault_pass
 *.retry
 __pycache__/
+# Ansible
+.vault_pass
+*.retry
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
+
+# 자격증명
+*.pem
+*.key
