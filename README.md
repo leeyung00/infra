@@ -1,4 +1,4 @@
-#terraform
+# terraform
 테라폼은 코드를 통해 환경의 생성/삭제/수정을 목적으로 활용된다.
 
 # ansible
