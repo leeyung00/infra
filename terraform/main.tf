@@ -12,6 +12,11 @@ provider "aws" {
 }
 
 module "network" { source = "./modules/network" }
+module "backup" { 
+source = "./modules/backup"
+bucket_name = "homelab-backup-leeyung-20260908"
+ }
+
 
 resource "aws_security_group" "bastion" {
   name   = "bastion-sg"
@@ -94,3 +99,4 @@ resource "local_sensitive_file" "private_key" {
   content         = tls_private_key.homelab.private_key_openssh
   file_permission = "0400"
 }
+
