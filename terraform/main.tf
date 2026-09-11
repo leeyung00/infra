@@ -12,10 +12,10 @@ provider "aws" {
 }
 
 module "network" { source = "./modules/network" }
-module "backup" { 
-source = "./modules/backup"
-bucket_name = "homelab-backup-leeyung-20260908"
- }
+module "backup" {
+  source      = "./modules/backup"
+  bucket_name = "homelab-backup-leeyung-20260908"
+}
 
 
 resource "aws_security_group" "bastion" {
