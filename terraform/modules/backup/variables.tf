@@ -1,4 +1,4 @@
-variable "backup_name" {
+variable "bucket_name" {
 description = "백업 버킷 이름"
 type = string
 }
